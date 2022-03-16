@@ -7,7 +7,7 @@ var playerAttack = 10;
 
 var enemyNames = ["Mr. Roboto", "Amy Android", "General Grevious"];
 var enemyHealth = 50;
-var enemyAttack = 25;
+var enemyAttack = 12;
 var playerMoney = 10;
 var skipPenalty = 5;
 
@@ -85,6 +85,18 @@ var startGame = function () {
             var pickedEnemyName = enemyNames[i];
             enemyHealth = 50;
             fight(pickedEnemyName);
+
+            if (playerHealth > 0 && i < enemyNames.length -1) {
+
+                var storeConfirm = window.confirm ("Would you like to visit the shop?");
+
+                if (storeConfirm) {
+                    shop();
+                }
+                else {
+                    continue;
+                }
+            }
         }
 
         else {
@@ -117,6 +129,50 @@ var endGame = function () {
     }
 };
 
+var shop = function () {
+    console.log("Entered the shop.");
+
+    var shopOptionPrompt = window.prompt ("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the shop?  Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+    
+    // Use 'switch' to carry out action
+    switch (shopOptionPrompt){
+        case "REFILL":
+        case "refill":
+            if (playerMoney >= 7){
+            window.alert ("Refilling " + playerName + "'s health by 20 for 7 dollars.");
+            playerHealth = playerHealth + 20;
+            playerMoney = playerMoney - 7;
+            }
+            else {
+                window.alert (playerName + " does not have enough money!");
+            }
+            window.alert (playerName + "'s health is now " + playerHealth + ".");
+            break;
+        
+        case "UPGRADE":
+        case "upgrade":
+            if (playerMoney >= 7){
+            window.alert ("Upgrading " + playerName + "'s attack power by 6 for 7 dollars.");
+            playerAttack = playerAttack + 5;
+            playerMoney = playerMoney - 7;
+            }
+            else {
+                window.alert (playerName + " does not have enough money!");
+            }
+            window.alert (playerName + "'s attack power is now " + playerAttack +".");
+            break;
+            
+        case "LEAVE":
+        case "leave":
+            window.alert ("Leaving the store.");
+            break;
+
+        default:
+            window.alert ("Please chose a valid option. 'REFILL', 'UPGRADE', or 'LEAVE'.");
+            shop();
+            break;
+    }
+};
 
 // Starts the GAME!
 startGame ();
