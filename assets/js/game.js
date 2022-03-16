@@ -12,7 +12,7 @@ var fight = function(enemy) {
             if (confirmSkip) {
                 window.alert (playerInfo.name + " has chosen to skip this fight!");
 
-                playerInfo.money = Math.max(playerInfo.money - skipPenalty);
+                playerInfo.money = Math.max(0, playerInfo.money - skipPenalty);
 
                 window.alert (playerInfo.name + " lost " + skipPenalty + " dollars.");
 
@@ -22,6 +22,7 @@ var fight = function(enemy) {
                 break;
             }
         } 
+
             var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
             enemy.health = Math.max(0, enemy.health - damage);
 
@@ -97,6 +98,7 @@ var startGame = function () {
 
 
 var endGame = function () {
+
     // If player is still alive, player wins!
     if (playerInfo.health > 0) {
         window.alert ("Great job, you've survived Robot Gladiators! You now have a score of " + playerInfo.money + ".");
