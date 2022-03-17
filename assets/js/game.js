@@ -1,27 +1,36 @@
+var fightOrSkip = function(){
+    var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle?');
+
+    if (promptFight === "" || promptFight === null){
+        window.alert("You need to provide a valid response.  Please try again!");
+        return fightOrSkip();
+    }
+
+    promptFight = promptFight.toLowerCase();
+
+    if (promptFight === "skip" || promptFight === "SKIP"){
+        var confirmSkip = window.confirm("Are you sure you would like to skip this fight?");
+        
+        if (confirmSkip){
+            window.alert(playerInfo.name + " has chosen to skip this fight!");
+            
+            playerInfo.money = Math.max(0, playerInfo.money - skipPenalty);
+            window.alert (playerInfo.name + " lost " + skipPenalty + " dollars.");
+            return true;
+            shop();
+        }
+    }
+    return false;
+}
+
+
 var fight = function(enemy) {
 
     while (playerInfo.health > 0 && enemy.health > 0) {
 
-        var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle?");
-
-        if (promptFight === "SKIP" || promptFight === "skip") {
-
-            //Confirm player wants to skip the fight
-            var confirmSkip = window.confirm("Are you sure you would like to quit this fight?");
-
-            if (confirmSkip) {
-                window.alert (playerInfo.name + " has chosen to skip this fight!");
-
-                playerInfo.money = Math.max(0, playerInfo.money - skipPenalty);
-
-                window.alert (playerInfo.name + " lost " + skipPenalty + " dollars.");
-
-                // window.alert (playerInfo.name + " still has " + playerInfo.health + " health remaining.");
-                // window.alert (enemy.name + " still has " + enemy.health + " health  remaining.");
-
-                break;
-            }
-        } 
+        if (fightOrSkip()){
+            break;
+        }; 
 
             var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
             enemy.health = Math.max(0, enemy.health - damage);
@@ -58,6 +67,7 @@ var fight = function(enemy) {
             console.log(enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining.");         
     }
 };
+
 var startGame = function () {
 
     // Resets player stats
@@ -159,6 +169,7 @@ var getPlayerName = function(){
     while (name === "" || name === null){
         name = prompt("What is your robot's name?");
     }
+    return name;
 }
 
 var playerInfo = {
