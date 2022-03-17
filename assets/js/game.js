@@ -153,8 +153,16 @@ var randomNumber = function(min, max){
     return value;
 }
 
+var getPlayerName = function(){
+    var name = "";
+    
+    while (name === "" || name === null){
+        name = prompt("What is your robot's name?");
+    }
+}
+
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
@@ -190,11 +198,11 @@ var playerInfo = {
 
 var enemyInfo = [
     {
-        name: "Mr. Roboto",
+        name: "Battle Droid",
         attack: randomNumber(10, 14)
     },
     {
-        name: "Amy Android",
+        name: "Droideka",
         attack: randomNumber(10, 14)
     },
     {
